@@ -1,3 +1,10 @@
+# Visual Studio
+*.vs
+Debug/
+Release/
+*.vcxproj*
+*.sln
+
 # Prerequisites
 *.d
 

@@ -6,6 +6,8 @@
 using namespace std;
 
 
+#ifdef CSV_PARSER_TEST
+
 int main(int argc, char* argv[])
 {
 	CSVParser parser("abc, def  ,,  ada,  \" teste \"");
@@ -25,3 +27,5 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
+
+#endif

@@ -3,12 +3,25 @@
 #include "csv-parser.h"
 
 
+using namespace std;
+
+
 int main(int argc, char* argv[])
 {
 	CSVParser parser("abc, def  ,,  ada,  \" teste \"");
-
 	parser.parse();
-	std::cout << parser[1] << std::endl;
+
+	if (parser[0] != "abc")	
+	{
+		cerr << "First token expected is <abc> but <"  << parser[0] << ">" << endl;
+		return 1;
+	}
+
+	if (parser[1] != "def")	return 1;
+	{
+		cerr << "Second token expected is <def> but <" << parser[1] << ">" << endl;
+		return 1;
+	}
 
 	return 0;
 }

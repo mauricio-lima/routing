@@ -8,16 +8,28 @@ const server = new hapi.Server({
 
 server.route({   
     method  : 'GET',   
-    path    : '/',   
+    path    : '/database',   
     handler : async (request, h) => {
         try
         {
             const status = await service()
-            return status.stdOut
+
+            const output = status.stdOut
+            const lines  = output.split('\r\n').filter( item => item != '' )
+            const result = lines.map( item => {
+                let row = item.split(',').map(item => item.trim())
+                row[2] = isNaN(row[2]) ? row[2] : parseInt(row[2])
+                return row
+            })
+
+            return result
         }
-        catch
+        catch(err)
         {
-            return 'error'
+            console.log(err);
+            if (status) {
+                console.log(status.exitCode)
+            }
         }
     } 
 });
@@ -30,8 +42,7 @@ const launch = async () => {
     } 
     catch (err) 
     { 
-        console.error(err); 
-        process.exit(1); 
+        return err; 
     };
      
     console.log(`Server running at ${server.info.uri}`); 
@@ -46,7 +57,7 @@ async function service()
             stdOut   : ''
         }
 
-        const process = exec('../../bin/router --reset', function(error, stdout, stderr) { 
+        const process = exec('router --reset', function(error, stdout, stderr) { 
             status.stdOut = stdout
             status.stdErr = stderr
             if (status.exitCode != 0)

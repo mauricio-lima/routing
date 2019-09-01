@@ -2,14 +2,14 @@ const hapi = require('hapi');
 const exec = require('child_process').exec
 
 const server = new hapi.Server({ 
-    host : 'localhost', 
-    port : 3101, 
+    host : '0.0.0.0', 
+    port : 3000
 });
 
 server.route({   
     method  : 'GET',   
     path    : '/',   
-    handler : (request, h) => {
+    handler : async (request, h) => {
         try
         {
             const status = await service()

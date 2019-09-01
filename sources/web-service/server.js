@@ -15,7 +15,7 @@ server.route({
             const status = await service()
 
             const output = status.stdOut
-            const lines  = output.split('\r\n').filter( item => item != '' )
+            const lines  = output.split('\n').filter( item => item != '' )
             const result = lines.map( item => {
                 let row = item.split(',').map(item => item.trim())
                 row[2] = isNaN(row[2]) ? row[2] : parseInt(row[2])
@@ -27,9 +27,6 @@ server.route({
         catch(err)
         {
             console.log(err);
-            if (status) {
-                console.log(status.exitCode)
-            }
         }
     } 
 });

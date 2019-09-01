@@ -5,6 +5,9 @@ Release/
 *.vcxproj*
 *.sln
 
+# Node Modules
+node_modules/
+
 # Prerequisites
 *.d
 

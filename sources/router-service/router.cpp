@@ -5,6 +5,9 @@
 
 #include "configuration.h"
 
+#include "router-database.h"
+#include "csv-database.h"
+
 
 using namespace std;
 
@@ -23,6 +26,7 @@ void CommandHelp()
 {
 	PrefixHelp();
 	cout << "database - Comandos relacionados ao armazenamento dos dados de roteamento" << endl;
+	cout << "track    - Avalia rotas baseada nos parâmetros"                            << endl;
 }
 
 
@@ -93,6 +97,55 @@ int CommandDatabase(int argc, char* argv[])
 	}
 
 	return 0;
+}
+
+
+void CommandTrackOptionHelp()
+{
+	PrefixHelp();
+	cout << "O comando 'track' deve ter opções entre as seguintes:"      << endl;
+	cout << endl;
+	cout << "--show"   << endl;
+	cout << " -s     " << "Mostra a estrutura de rastreamento das rotas" << endl;
+}
+
+
+void CommandTrackOptionShow()
+{
+	TCSVDatabase*	database;
+
+	database = new TCSVDatabase(Configuration["source"]);
+}
+
+
+int CommandTrack(int argc, char* argv[])
+{
+	string	option;
+	int		index;
+
+	if (argc < 3)
+	{
+		CommandTrackOptionHelp();
+		return 1;
+	}
+
+	index = 2;
+	while (true)
+	{
+		option = argv[index];
+
+		if ((option == "--help") || (option == "-h"))
+		{
+			CommandTrackOptionHelp();
+			return 0;
+		}
+
+		if ((option == "--show") || (option == "-s"))
+		{
+			CommandTrackOptionShow();
+			return 0;
+		}
+	}
 }
 
 

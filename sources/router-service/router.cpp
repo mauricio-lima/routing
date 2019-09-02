@@ -3,13 +3,13 @@
 #include <string>
 #include <fstream>
 
-#include "csv-database.h"
+#include "configuration.h"
 
 
 using namespace std;
 
 
-
+TConfiguration Configuration;
 
 
 void PrefixHelp()
@@ -29,22 +29,28 @@ void CommandHelp()
 void CommandDatabaseOptionHelp()
 {
 	PrefixHelp();
-	cout << "O comando 'database' deve ter opções entre as seguintes:" << endl;
+	cout << "O comando 'database' deve ter opï¿½ï¿½es entre as seguintes:" << endl;
 	cout << endl;
 	cout << "--list"   << endl;
-	cout << " -l     " << "Lista o banco de dados na forma como está armazenado" << endl;
+	cout << " -l     " << "Lista o banco de dados na forma como estï¿½ armazenado" << endl;
 }
 
 
 void CommandDatabaseOptionList()
 {
-	ifstream	database("database.csv");
+	ifstream	database(Configuration["source"]);
 	string		line;
 	
 	while (getline(database, line))
 	{
 		cout << line << endl;
 	}
+}
+
+
+void CommandDatabaseOptionSource(string source)
+{
+	
 }
 
 
@@ -74,6 +80,12 @@ int CommandDatabase(int argc, char* argv[])
 		{
 			CommandDatabaseOptionList();
 			return 0;
+		}
+
+		if ((option == "--source") || (option == "-s"))
+		{
+			string source = argv[++index];
+			CommandDatabaseOptionSource(source);
 		}
 
 		index++;
@@ -106,11 +118,11 @@ int Commands(int argc, char* argv[])
 		return CommandDatabase(argc, argv);
 	}
 
-	cout << "O comando '" << option << "' não é um comando válido. Use " << endl;
+	cout << "O comando '" << option << "' nï¿½o ï¿½ um comando vï¿½lido. Use " << endl;
 	cout << endl;
 	cout << "   router --help" << endl;
 	cout << endl;
-	cout << "para exibir os comandos disponíveis." << endl;
+	cout << "para exibir os comandos disponï¿½veis." << endl;
 	cout << endl;
 	cout << endl;
 

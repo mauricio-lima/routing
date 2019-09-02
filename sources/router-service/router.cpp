@@ -1,9 +1,14 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+
+#include "csv-database.h"
 
 
 using namespace std;
+
+
 
 
 
@@ -33,8 +38,13 @@ void CommandDatabaseOptionHelp()
 
 void CommandDatabaseOptionList()
 {
-	cout << "ABC, DEF,  10" << endl;
-	cout << "CFG, HIJ, 100" << endl;
+	ifstream	database("database.csv");
+	string		line;
+	
+	while (getline(database, line))
+	{
+		cout << line << endl;
+	}
 }
 
 

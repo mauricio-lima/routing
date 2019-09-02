@@ -54,7 +54,7 @@ async function service()
             stdOut   : ''
         }
 
-        const process = exec('router --reset', function(error, stdout, stderr) { 
+        const process = exec('router database --list', function(error, stdout, stderr) { 
             status.stdOut = stdout
             status.stdErr = stderr
             if (status.exitCode != 0)
